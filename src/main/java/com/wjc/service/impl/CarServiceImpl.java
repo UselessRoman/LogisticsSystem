@@ -1,7 +1,9 @@
 package com.wjc.service.impl;
 
 import com.wjc.dao.CarDao;
+import com.wjc.dao.PackageDao;
 import com.wjc.domain.Car;
+import com.wjc.domain.Package;
 import com.wjc.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class CarServiceImpl implements CarService {
     @Autowired
     private CarDao carDao;
 
+    @Autowired
+    private PackageDao packageDao;
+
     @Override
     public Car getByID(int id) {
         return carDao.getByID(id);
@@ -22,5 +27,22 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<Car> getAvailable() {
         return carDao.getAvailable();
+    }
+
+    @Override
+    public void loadPackages() {
+        List<Car> cars = carDao.getAvailable();
+        List<Package> packages=packageDao.getNeededToSend();
+
+    }
+
+    @Override
+    public boolean setRepair(int id) {
+        return carDao.setRepair(id) > 0;
+    }
+
+    @Override
+    public boolean doRepair(int id) {
+        return carDao.doRepair(id) > 0;
     }
 }
