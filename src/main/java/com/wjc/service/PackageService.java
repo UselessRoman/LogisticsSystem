@@ -24,8 +24,14 @@ public interface PackageService
      */
     List<Package> getByReceiverId(int id);
 
+    /**
+     * 根据货物id查询包裹
+     * @param id
+     * @return com.wjc.domain.Package
+     * @create 2022/7/15 16:08
+     */
+    Package getByPackageId(int id);
 
-    // TODO 计算包裹的费用
     /**
      * 添加一个包裹
      * @param p 

@@ -29,12 +29,18 @@ public class CarServiceImpl implements CarService {
         return carDao.getAvailable();
     }
 
+
+    // TODO: 2022/7/15 装车的逻辑与算法
     @Override
     public void loadPackages() {
-        List<Car> cars = carDao.getAvailable();
-        List<Package> packages=packageDao.getNeededToSend();
-
+     /*   List<Package> packages=packageDao.getNeededToSend("成都","重庆");
+        for (Package p:
+            packages ) {
+            p.setCar_id();
+            packageDao.updateCarId(p);
+        }*/
     }
+
 
     @Override
     public boolean setRepair(int id) {
