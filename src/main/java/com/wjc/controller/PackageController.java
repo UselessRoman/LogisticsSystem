@@ -15,7 +15,17 @@ public class PackageController {
 
     @GetMapping("/{package_id}")
     public Result getByPackageId(@PathVariable Integer package_id) {
-        Package p = packageService.getByPackageId(package_id);
+        List<Package> p = packageService.getByPackageId(package_id);
+        Integer code = (p != null) ? Code.GET_OK : Code.GET_ERR;
+        String msg = (p != null) ? null : "查询失败！";
+
+        return new Result(code, p, msg);
+    }
+
+    @GetMapping
+    public Result getAllPackage() {
+        System.out.println("all");
+        List<Package> p = packageService.getAllPackage();
         Integer code = (p != null) ? Code.GET_OK : Code.GET_ERR;
         String msg = (p != null) ? null : "查询失败！";
 
@@ -46,5 +56,11 @@ public class PackageController {
         boolean flag = packageService.addPackage(p);
 
         return new Result(flag ? Code.ADD_OK : Code.ADD_ERR, flag);
+    }
+
+    @PutMapping
+    public Result update(@RequestBody Package p) {
+        boolean flag = packageService.setArrived(p);
+        return new Result(flag ? Code.UPDATE_OK : Code.UPDATE_ERR, flag);
     }
 }

@@ -18,7 +18,7 @@ public interface PackageDao {
     List<Package> getByReceiverId(int id);
 
     @Select("select * from package where package_id=#{id}")
-    Package getByPackageId(int id);
+    List<Package> getByPackageId(int id);
 
 
     @Insert("insert into package(send_addr, receive_addr, car_id, sender_id, receiver_id, weight, price) " +
@@ -34,4 +34,8 @@ public interface PackageDao {
 
     @Update("update package set status ='到达' where package_id=#{package_id}  ")
     int setArrived(Package p);
+
+
+    @Select("select * from package")
+    List<Package> getAllPackage();
 }

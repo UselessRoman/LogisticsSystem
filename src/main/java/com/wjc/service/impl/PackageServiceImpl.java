@@ -26,7 +26,7 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
-    public Package getByPackageId(int id) {
+    public List<Package> getByPackageId(int id) {
         return packageDao.getByPackageId(id);
     }
 
@@ -35,5 +35,15 @@ public class PackageServiceImpl implements PackageService {
     {
         p.setPrice(PriceCalculator.calculate(p.getSend_addr(),p.getReceive_addr(),p.getWeight()));
         return packageDao.addPackage(p)>0;
+    }
+
+    @Override
+    public List<Package> getAllPackage() {
+        return packageDao.getAllPackage();
+    }
+
+    @Override
+    public boolean setArrived(Package p) {
+        return packageDao.setArrived(p)>0;
     }
 }

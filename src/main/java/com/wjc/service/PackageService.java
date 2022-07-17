@@ -30,7 +30,7 @@ public interface PackageService
      * @return com.wjc.domain.Package
      * @create 2022/7/15 16:08
      */
-    Package getByPackageId(int id);
+   List< Package> getByPackageId(int id);
 
     /**
      * 添加一个包裹
@@ -39,4 +39,8 @@ public interface PackageService
      * @create 2022/7/14 9:10
      */
     boolean addPackage(Package p);
+
+    List<Package> getAllPackage();
+
+    boolean setArrived(Package p);
 }

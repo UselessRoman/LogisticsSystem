@@ -1,199 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
+
+    <!-- 页面meta -->
+
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>包裹查询</title>
-    <link href="static/css/layui.css" rel="stylesheet" type="text/css">
+
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <!-- 引入样式 -->
+
+    <link rel="stylesheet" href="../static/css/index.css">
+
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../static/css/style2.css">
+
+    <link href="../static/css/layui.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-<div class="layui-layout layui-layout-admin">
-    <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">包裹查询系统</div>
-        <!-- 头部区域（可配合layui 已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left" lay-filter="head-nav">
-            <!-- 移动端显示 -->
-            <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
-                <i class="layui-icon layui-icon-spread-left"></i>
-            </li>
 
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 1</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 2</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 3</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">nav groups</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">menu 11</a></dd>
-                    <dd><a href="javascript:;">menu 22</a></dd>
-                    <dd><a href="javascript:;">menu 33</a></dd>
-                </dl>
-            </li>
-        </ul>
-        <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                <span id="welcome"></span>
-            </li>
-            <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-                <a href="javascript:;">
-                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                    <span id="userAccount"></span>
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:loginOut();">退出登录</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
-                <a href="javascript:;">
-                    <i class="layui-icon layui-icon-more-vertical"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
+<body class="hold-transition">
 
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="left-nav" id="left-nav">
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i>  menu group 1</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i> menu 1</a></dd>
-                        <dd><a href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i> menu 2</a></dd>
-                        <dd><a href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i> menu 3</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="javascript:;"><i class="layui-icon layui-icon-face-smile"></i> click menu item</a></li>
-            </ul>
+<div id="app">
+
+    <ul class="layui-nav layui-bg-blue" lay-filter="">
+
+        <li class="layui-nav-item"><a href="">包裹查询</a></li>
+    </ul>
+
+    <div class="app-container">
+
+        <div class="box">
+
+            <div class="filter-container">
+
+                <el-input placeholder="包裹单号/电话号码" v-model="pagination.queryString" style="width: 200px;"
+                          class="filter-item"></el-input>
+
+                <el-button @click="getAll()" class="dalfBut">查询</el-button>
+
+
+            </div>
+
+            <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
+
+                <el-table-column type="package_id" align="center" label="序号"></el-table-column>
+
+                <el-table-column prop="send_addr" label="出发地" align="center"></el-table-column>
+                <el-table-column prop="receive_addr" label="目的地" align="center"></el-table-column>
+                <el-table-column prop="weight" label="重量" align="center"></el-table-column>
+
+                <el-table-column prop="car_id" label="车号" align="center"></el-table-column>
+
+                <el-table-column prop="price" label="价格" align="center"></el-table-column>
+
+                <el-table-column label="操作" align="center">
+
+                    <template slot-scope="scope">
+
+                        <el-button type="primary" size="mini" @click="receive(scope.row)">确认收货</el-button>
+
+                    </template>
+
+                </el-table-column>
+
+            </el-table>
+
+
         </div>
+
     </div>
 
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">
-            <iframe id="content" src="" width="100%" height="800px" style="border: 0px;"></iframe>
-        </div>
-    </div>
-
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        底部固定区域
-    </div>
 </div>
-<script type="text/javascript" src="layui/layui.js"></script>
-<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="jquery.serializeObject.js"></script>
-<script type="text/javascript">
-    var storage = window.localStorage;//开启缓存
-    layui.define(() => {
-        var element = layui.element
-            ,layer = layui.layer
-            ,util = layui.util
-            ,$ = layui.$;
 
-        $(function () {
-            //渲染用户信息
-            initUserInfo();
-            //渲染左侧导航栏
-            renderLeftNav();
-            //默认选择项
-            defaultChoose();
-        });
+</body>
 
-        /**
-         * 渲染用户信息
-         */
-        function initUserInfo(){
-            //获取用户信息
-            var userInfo = JSON.parse(storage.getItem("userInfo"));
-            console.log(userInfo);
-            //渲染用户信息到页面
-            $("#welcome").html("欢迎您," + userInfo.authorityName);
-            $("#userAccount").html(userInfo.userAccount);
-        }
+<!-- 引入组件库 -->
 
+<script src="../static/js/vue.js"></script>
 
-        /**
-         * 渲染左侧导航栏
-         * @param menuData
-         */
-        function renderLeftNav(){
-            //获取用户信息
-            var userInfo = JSON.parse(storage.getItem("userInfo"));
-            //清空静态导航栏
-            $("#left-nav").html("");
-            //添加导航栏
-            $(userInfo.menuVos).each((index, item) => {
-                if(item.path == ''){//管理组菜单
-                    $("#left-nav").append('<li class="layui-nav-item">\n' +
-                        '                    <a href="javascript:;" path="' + item.path + '"><i class="layui-icon ' + item.icon + '"></i>  ' + item.title + '</a>\n' +
-                        '                    <dl class="layui-nav-child"></dl>\n' +
-                        '                </li>');
-                    //管理组的子菜单
-                    $(item.children).each((indexIn, itemIn) => {
-                        $("#left-nav>li:eq(0)>dl").append('<dd><a href="javascript:;" path="' + itemIn.path + '"><i class="layui-icon  ' + itemIn.icon + '"></i>  ' + itemIn.title + '</a></dd>');
-                    });
-                }else{
-                    $("#left-nav").append('<li class="layui-nav-item"><a href="javascript:;" path="' + item.path + '"><i class="layui-icon ' + item.icon + '"></i> ' + item.title + '</a></li>');
-                }
-            });
-            //重新渲染菜单
-            element.render('nav');
-        }
+<script src="../static/js/index.js"></script>
 
-        /**
-         * 默认选中
-         */
-        function defaultChoose(){
-            //layui-nav-itemed  layui-this
-            //1.拿到左侧菜单的第一个菜单
-            var path = $("#left-nav>li:eq(0)>a").attr("path");
-            if(!path){
-                //加上默认选择的样式
-                $("#left-nav>li:eq(0)").addClass("layui-nav-itemed");
-                $("#left-nav>li:eq(0)>dl>dd:eq(0)").addClass("layui-this");
-                //跳转默认页面
-                var pathIn = $("#left-nav>li:eq(0)>dl>dd:eq(0)>a").attr("path");
-                $("#content").attr("src", pathIn);
-            }else{
-                $("#left-nav>li:eq(0)").addClass("layui-this");
-                $("#content").attr("src", path);
+<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+
+<script src="../static/js/axios-0.18.0.js"></script>
+
+<script>
+    var vue = new Vue({
+
+        el: '#app',
+        data: {
+            pagination: {},
+            dataList: [],//当前页要展示的列表数据
+            formData: {},//表单数据
+            dialogFormVisible: false,//控制表单是否可见
+            dialogFormVisible4Edit: false,//编辑表单是否可见
+            rules: {//校验规则
+                type: [{required: true, message: '图书类别为必填项', trigger: 'blur'}],
+                name: [{required: true, message: '图书名称为必填项', trigger: 'blur'}]
+            }
+        },
+
+        //钩子函数，VUE对象初始化完成后自动执行
+        created() {
+            this.get();
+        },
+
+        methods: {
+            //列表
+            get() {
+                var package_id = window.sessionStorage.getItem("package_id").valueOf();
+                console.log(package_id);
+                axios.get("/packages/"+package_id).then((res) => {
+                        this.dataList = res.data.object;
+                    }
+                );
+            },
+
+            receive() {
+                axios.put("packages"+row.id).then((res)=>
+                {
+                    $.success("已收货！");
+                })
+            },
+
+            //弹出添加窗口
+            handleCreate() {
+                this.dialogFormVisible = true;
+                this.resetForm();
+            },
+
+            //重置表单
+            resetForm() {
+                this.formData = {};
+            },
+
+            //添加
+            handleAdd() {
+                axios.post("/packages/", this.formData).then((res) => {
+                    if (res.data.code == 20011) {
+                        this.dialogFormVisible = false;
+
+                        this.$message.success("添加成功")
+                    } else if (res.data.code == 20010) {
+
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+
+                }).finally(() => {
+                        this.getAll();
+                    }
+                )
+            },
+
+            //弹出编辑窗口
+            handleUpdate(row) {
+                axios.get("/packages" + row.id).then((res) => {
+                    if (res.data.code == 20041) {
+                        this.formData = res.data.data;
+                        this.dialogFormVisible4Edit = true;
+                    } else {
+                        this.$message.error(res.data.mesg);
+                    }
+
+                })
+            },
+
+            //编辑
+            handleEdit() {
+                axios.put("/packages", this.formData).then((res) => {
+                    if (res.data.code == 20031) {
+                        this.dialogFormVisible4Edit = false;
+
+                        this.$message.success("修改成功")
+                    } else if (res.data.code == 20030) {
+
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+
+                }).finally(() => {
+                        this.getAll();
+                    }
+                )
             }
         }
+    })
 
-
-        //头部事件
-        util.event('lay-header-event', {
-            //左侧菜单事件
-            menuRight: function(){
-                layer.open({
-                    type: 1
-                    ,content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
-                    ,area: ['260px', '100%']
-                    ,offset: 'rt' //右上角
-                    ,anim: 5
-                    ,shadeClose: true
-                });
-            }
-        });
-
-        //左侧菜单栏监听
-        element.on('nav(left-nav)', function(elem){
-            $("#content").attr("src", elem.attr("path"));
-        });
-        element.on('nav(head-nav)', function(elem){
-            console.log(elem); //得到当前点击的DOM对象
-        });
-
-        //用户登出
-        window.loginOut = function() {
-            layer.confirm('请问您是否要退出登录 ? ', {icon: 3, title:'提示', shade: 0.3 }, function(index){
-                $.get("/loginOut").then(res => {
-                    window.location.href = "login.html";
-                });
-            });
-        }
-
-    });
 
 </script>
-</body>
+
+<script type="text/javascript" src="../static/js/layui.js"></script>
+<script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery.serializeObject.js"></script>
+
 </html>
