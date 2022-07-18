@@ -36,5 +36,11 @@ public class PackageServiceTest {
             System.out.println("yes");
     }
 
+    @Test
+    void TestGetByPackageID()
+    {
+        System.out.println(packageService.getByPackageId(401));
+    }
+
 
 }

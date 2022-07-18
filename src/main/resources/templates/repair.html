@@ -1,6 +1,6 @@
 <head>
     <meta charset="UTF-8">
-    <title>司机个人中心</title>
+    <title>维修员个人中心</title>
     <link href="../static/css/layui.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../static/css/index.css">
 
@@ -12,7 +12,7 @@
 
 <!--导航栏-->
 <ul class="layui-nav layui-bg-blue" lay-filter="">
-    <li class="layui-nav-item" onclick="LetSheet1Visible()">维修员个人中心</li>
+    <li class="layui-nav-item" >维修员个人中心</li>
 </ul>
 
 
@@ -29,36 +29,32 @@
 
                     <div class="box">
 
-                        <div class="filter-container">
+                        <!--                        <div class="filter-container">-->
 
-                            <el-input placeholder="图书名称111" v-model="pagination.queryString" style="width: 200px;"
-                                      class="filter-item"></el-input>
+                        <!--                            <el-input placeholder="图书名称111" v-model="pagination.queryString" style="width: 200px;"-->
+                        <!--                                      class="filter-item"></el-input>-->
 
-                            <el-button @click="getAll()" class="dalfBut">查询</el-button>
+                        <!--                            <el-button @click="getAll()" class="dalfBut">查询</el-button>-->
 
-                            <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
+                        <!--                            <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>-->
 
-                        </div>
+                        <!--                        </div>-->
 
                         <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
 
                             <el-table-column type="package_id" align="center" label="序号"></el-table-column>
 
-                            <el-table-column prop="send_addr" label="出发地" align="center"></el-table-column>
-                            <el-table-column prop="receive_addr" label="目的地" align="center"></el-table-column>
-                            <el-table-column prop="weight" label="重量" align="center"></el-table-column>
-
-                            <el-table-column prop="car_id" label="车号" align="center"></el-table-column>
-
-                            <el-table-column prop="price" label="价格" align="center"></el-table-column>
+                            <el-table-column prop="send_addr" label="状态" align="center"></el-table-column>
+                            <el-table-column prop="receive_addr" label="描述" align="center"></el-table-column>
+                            <el-table-column prop="weight" label="费用" align="center"></el-table-column>
 
                             <el-table-column label="操作" align="center">
 
                                 <template slot-scope="scope">
 
-                                    <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
+                                    <el-button type="primary" size="mini" @click="handleRepair(scope.row)">维修
+                                    </el-button>
 
-                                    <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
 
                                 </template>
 
@@ -66,128 +62,128 @@
 
                         </el-table>
 
-                        <!-- 新增标签弹层 -->
+                        <!--                        &lt;!&ndash; 新增标签弹层 &ndash;&gt;-->
 
-                        <div class="add-form">
+                        <!--                        <div class="add-form">-->
 
-                            <el-dialog title="新增图书" :visible.sync="dialogFormVisible">
+                        <!--                            <el-dialog title="新增图书" :visible.sync="dialogFormVisible">-->
 
-                                <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right"
-                                         label-width="100px">
+                        <!--                                <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right"-->
+                        <!--                                         label-width="100px">-->
 
-                                    <el-row>
+                        <!--                                    <el-row>-->
 
-                                        <el-col :span="12">
+                        <!--                                        <el-col :span="12">-->
 
-                                            <el-form-item label="图书类别" prop="type">
+                        <!--                                            <el-form-item label="图书类别" prop="type">-->
 
-                                                <el-input v-model="formData.type"/>
+                        <!--                                                <el-input v-model="formData.type"/>-->
 
-                                            </el-form-item>
+                        <!--                                            </el-form-item>-->
 
-                                        </el-col>
+                        <!--                                        </el-col>-->
 
-                                        <el-col :span="12">
+                        <!--                                        <el-col :span="12">-->
 
-                                            <el-form-item label="图书名称" prop="name">
+                        <!--                                            <el-form-item label="图书名称" prop="name">-->
 
-                                                <el-input v-model="formData.name"/>
+                        <!--                                                <el-input v-model="formData.name"/>-->
 
-                                            </el-form-item>
+                        <!--                                            </el-form-item>-->
 
-                                        </el-col>
+                        <!--                                        </el-col>-->
 
-                                    </el-row>
+                        <!--                                    </el-row>-->
 
 
-                                    <el-row>
+                        <!--                                    <el-row>-->
 
-                                        <el-col :span="24">
+                        <!--                                        <el-col :span="24">-->
 
-                                            <el-form-item label="描述">
+                        <!--                                            <el-form-item label="描述">-->
 
-                                                <el-input v-model="formData.description" type="textarea"></el-input>
+                        <!--                                                <el-input v-model="formData.description" type="textarea"></el-input>-->
 
-                                            </el-form-item>
+                        <!--                                            </el-form-item>-->
 
-                                        </el-col>
+                        <!--                                        </el-col>-->
 
-                                    </el-row>
+                        <!--                                    </el-row>-->
 
-                                </el-form>
+                        <!--                                </el-form>-->
 
-                                <div slot="footer" class="dialog-footer">
+                        <!--                                <div slot="footer" class="dialog-footer">-->
 
-                                    <el-button @click="dialogFormVisible = false">取消</el-button>
+                        <!--                                    <el-button @click="dialogFormVisible = false">取消</el-button>-->
 
-                                    <el-button type="primary" @click="handleAdd()">确定</el-button>
+                        <!--                                    <el-button type="primary" @click="handleAdd()">确定</el-button>-->
 
-                                </div>
+                        <!--                                </div>-->
 
-                            </el-dialog>
+                        <!--                            </el-dialog>-->
 
-                        </div>
+                        <!--                        </div>-->
 
-                        <!-- 编辑标签弹层 -->
+                        <!--                        &lt;!&ndash; 编辑标签弹层 &ndash;&gt;-->
 
-                        <div class="add-form">
+                        <!--                        <div class="add-form">-->
 
-                            <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
+                        <!--                            <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">-->
 
-                                <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right"
-                                         label-width="100px">
+                        <!--                                <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right"-->
+                        <!--                                         label-width="100px">-->
 
-                                    <el-row>
+                        <!--                                    <el-row>-->
 
-                                        <el-col :span="12">
+                        <!--                                        <el-col :span="12">-->
 
-                                            <el-form-item label="图书类别" prop="type">
+                        <!--                                            <el-form-item label="图书类别" prop="type">-->
 
-                                                <el-input v-model="formData.type"/>
+                        <!--                                                <el-input v-model="formData.type"/>-->
 
-                                            </el-form-item>
+                        <!--                                            </el-form-item>-->
 
-                                        </el-col>
+                        <!--                                        </el-col>-->
 
-                                        <el-col :span="12">
+                        <!--                                        <el-col :span="12">-->
 
-                                            <el-form-item label="图书名称" prop="name">
+                        <!--                                            <el-form-item label="图书名称" prop="name">-->
 
-                                                <el-input v-model="formData.name"/>
+                        <!--                                                <el-input v-model="formData.name"/>-->
 
-                                            </el-form-item>
+                        <!--                                            </el-form-item>-->
 
-                                        </el-col>
+                        <!--                                        </el-col>-->
 
-                                    </el-row>
+                        <!--                                    </el-row>-->
 
-                                    <el-row>
+                        <!--                                    <el-row>-->
 
-                                        <el-col :span="24">
+                        <!--                                        <el-col :span="24">-->
 
-                                            <el-form-item label="描述">
+                        <!--                                            <el-form-item label="描述">-->
 
-                                                <el-input v-model="formData.description" type="textarea"></el-input>
+                        <!--                                                <el-input v-model="formData.description" type="textarea"></el-input>-->
 
-                                            </el-form-item>
+                        <!--                                            </el-form-item>-->
 
-                                        </el-col>
+                        <!--                                        </el-col>-->
 
-                                    </el-row>
+                        <!--                                    </el-row>-->
 
-                                </el-form>
+                        <!--                                </el-form>-->
 
-                                <div slot="footer" class="dialog-footer">
+                        <!--                                <div slot="footer" class="dialog-footer">-->
 
-                                    <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+                        <!--                                    <el-button @click="dialogFormVisible4Edit = false">取消</el-button>-->
 
-                                    <el-button type="primary" @click="handleEdit()">确定</el-button>
+                        <!--                                    <el-button type="primary" @click="handleEdit()">确定</el-button>-->
 
-                                </div>
+                        <!--                                </div>-->
 
-                            </el-dialog>
+                        <!--                            </el-dialog>-->
 
-                        </div>
+                        <!--                        </div>-->
 
                     </div>
 
@@ -195,18 +191,17 @@
 
             </div>
         </div>
-        <div class="layui-tab-item">2</div>
+        <div class="layui-tab-item">
+            <div id="sheet2">
+                <div class="text" :data="this.info">
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    //注意：导航 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function(){
-        var element = layui.element;
 
-        //…
-    });
-</script>
 
 <script src="../static/js/vue.js"></script>
 
@@ -246,6 +241,10 @@
                         this.dataList = res.data.object;
                     }
                 );
+            },
+
+            handleRepair() {
+
             },
 
             //弹出添加窗口
@@ -335,5 +334,32 @@
         }
     })
 </script>
+<script>
+    var vue2 = new Vue({
 
-</html>
+        el: '#sheet2',
+        data: {
+
+        },
+
+        //钩子函数，VUE对象初始化完成后自动执行
+        created() {
+            this.getAll();
+        },
+
+        methods: {
+            //列表
+            getAll() {
+
+                //todo 得到了ID，需要获得信息
+                var url = window.location.href;
+                var index = url.lastIndexOf("/");
+                str = url.substring(index + 1,url.length);
+                console.log(str);
+
+            }
+
+        }
+    })
+</script>
+

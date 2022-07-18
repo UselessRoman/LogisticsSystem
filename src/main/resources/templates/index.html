@@ -113,7 +113,6 @@
                 </nav><!-- end navbar -->
             </div><!-- container -->
         </div><!-- end main-nav -->
-
     </div>
     <!-- end main navbar area -->
 </header>
@@ -215,7 +214,7 @@
     var package_id=  document.getElementById("package_id");
 
     function jump() {
-        console.log(package_id)
+
         window.sessionStorage.setItem("package_id",package_id.value);
         window.location.href = "packages.html";
     }
@@ -243,41 +242,41 @@
                 <div class="wrapper mb-30">
                     <h3 class="title">邮寄包裹</h3>
                     <div class="transportation-form">
-                        <form>
+                        <form method="post" action="addPackage">
                             <div class="row row-sm">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="寄件人姓名">
+                                        <input type="text" class="form-control"name="sender_name" placeholder="寄件人姓名">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="寄件人电话号码">
+                                        <input type="text" class="form-control" name="sender_tel" placeholder="寄件人电话号码">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="寄件人地址">
+                                        <input type="text" class="form-control" name="sender_addr" placeholder="寄件人地址">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="收件人姓名">
+                                        <input type="text" class="form-control" name="receiver_name" placeholder="收件人姓名">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="收件人电话号码">
+                                        <input type="text" class="form-control" name="receiver_tel" placeholder="收件人电话号码">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="收件人地址">
+                                        <input type="text" class="form-control" name="receiver_addr" placeholder="收件人地址">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="重量">
+                                        <input type="text" class="form-control" name="weight" placeholder="重量">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -316,7 +315,7 @@
                 <div class="item-single mb-20">
                     <div class="image">
                         <a href="about.html " class="lazy-container aspect-ratio-4-3">
-                            <img class="lazyload" src="static/picture/storage.jpg" >
+                            <img class="lazyload" src="../static/picture/storage.jpg" >
                         </a>
                     </div>
                     <div class="content">
@@ -331,7 +330,7 @@
                 <div class="item-single mb-20">
                     <div class="image">
                         <a href="about.html" class="lazy-container aspect-ratio-4-3">
-                            <img class="lazyload" src="static/picture/wuliuflow.jpg " >
+                            <img class="lazyload" src="../static/picture/wuliuflow.jpg " >
                         </a>
                     </div>
                     <div class="content">
@@ -361,7 +360,7 @@
                 <div class="item-single mb-20">
                     <div class="image">
                         <a href="about.html" class="lazy-container aspect-ratio-4-3">
-                            <img class="lazyload" src="static/picture/clothes.jpg " >
+                            <img class="lazyload" src="../static/picture/clothes.jpg " >
                         </a>
                     </div>
                     <div class="content">

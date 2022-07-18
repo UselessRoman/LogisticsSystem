@@ -34,6 +34,7 @@ public class PackageServiceImpl implements PackageService {
     public boolean addPackage(Package p)
     {
         p.setPrice(PriceCalculator.calculate(p.getSend_addr(),p.getReceive_addr(),p.getWeight()));
+
         return packageDao.addPackage(p)>0;
     }
 

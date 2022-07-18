@@ -13,4 +13,7 @@ public interface EmployeeDao
 
     @Select(" select employee_id,employee_name,salary from employee where employee_id=#{id}")
     public List<String> getInfoById(int employee_id);
+
+    @Select(" select dept from employee where employee_id=#{employee_id}")
+    public String getDept(int employee_id);
 }

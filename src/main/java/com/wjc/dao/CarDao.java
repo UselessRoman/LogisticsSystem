@@ -22,4 +22,7 @@ public interface CarDao {
 
     @Update("update car set state='空闲' where car_id=#{car_id} and state ='需要维修'")
     int doRepair(int car_id);
+
+    @Select("select ")
+    List<Car> getNeededRepair();
 }

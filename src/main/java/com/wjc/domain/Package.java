@@ -10,6 +10,15 @@ public class Package
     private int weight;
     private int price;
     private int car_id;
+    private String status;
+
+    public int getPackage_id() {
+        return package_id;
+    }
+
+    public void setPackage_id(int package_id) {
+        this.package_id = package_id;
+    }
 
     @Override
     public String toString() {
@@ -22,7 +31,16 @@ public class Package
                 ", weight=" + weight +
                 ", price=" + price +
                 ", car_id=" + car_id +
+                ", status='" + status + '\'' +
                 '}';
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {

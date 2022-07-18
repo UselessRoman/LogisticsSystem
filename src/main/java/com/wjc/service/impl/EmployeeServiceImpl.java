@@ -12,9 +12,12 @@ public class EmployeeServiceImpl  implements EmployeeService {
 
     @Override
     public boolean verifyLogin(int employee_id, String password) {
-
         String correctPassword=employeeDao.getPasswordById(employee_id);
-
         return correctPassword.equals(password);
+    }
+
+    @Override
+    public String getDept(int employee_id) {
+        return employeeDao.getDept(employee_id);
     }
 }

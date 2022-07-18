@@ -21,19 +21,19 @@ public class PriceCalculator {
         CDDistance.put("上海", 4);
         distanceMap.put("成都", CDDistance);
         HashMap<String, Integer> CQDistance = new HashMap<>();
-        CDDistance.put("成都", 1);
-        CDDistance.put("北京", 4);
-        CDDistance.put("上海", 3);
+        CQDistance.put("成都", 1);
+        CQDistance.put("北京", 4);
+        CQDistance.put("上海", 3);
         distanceMap.put("重庆", CQDistance);
         HashMap<String, Integer> BJDistance = new HashMap<>();
-        CDDistance.put("成都", 5);
-        CDDistance.put("重庆", 4);
-        CDDistance.put("上海", 3);
+        BJDistance.put("成都", 5);
+        BJDistance.put("重庆", 4);
+        BJDistance.put("上海", 3);
         distanceMap.put("北京", BJDistance);
         HashMap<String, Integer> SHDistance = new HashMap<>();
-        CDDistance.put("成都", 4);
-        CDDistance.put("北京", 3);
-        CDDistance.put("重庆", 3);
+        SHDistance.put("成都", 4);
+        SHDistance.put("北京", 3);
+        SHDistance.put("重庆", 3);
         distanceMap.put("上海", SHDistance);
 
         if (weight==0) weight=50;

@@ -262,8 +262,6 @@
             <h1>Login</h1>
             <ul>
                 <li class="item"><a href="index.html">Home</a></li>
-                <li class="item">Pages</li>
-                <li class="item">User</li>
                 <li class="item active">Login</li>
             </ul>
         </div>
@@ -275,7 +273,7 @@
 <div class="authentication-section" id="app">
     <div class="container">
         <div class="main-form ptb-100">
-            <form id="#authForm">
+            <form id="#authForm" method="GET" action="employee_login">
                 <div class="content">
                     <h3>Welcome Back</h3>
                     <p>If you have an account with us, please log in</p>
@@ -284,10 +282,10 @@
                     <a href="register.html">Create Account</a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="EmployeeID" v-model="employee_id" required>
+                    <input type="text" class="form-control" placeholder="EmployeeID" name="employee_id" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" v-model="password" required>
+                    <input type="password" class="form-control" placeholder="Password" name="password" required>
                 </div>
                 <div class="row align-items-center mb-30">
                     <div class="col-lg-6 col-sm-6 col-6">
@@ -309,9 +307,9 @@
                         </div>
                     </div>
                 </div>
-                <el-button type="primary" @click="submit()" class="primary-btn">
+                <button type="submit" class="primary-btn">
                     Login
-                </el-button>
+                </button>
                 <!--  <el-button type="primary" @click="handleEdit()">确定</el-button>-->
             </form>
         </div>
@@ -324,41 +322,20 @@
 <script type="text/javascript" src="../static/js/jquery.min.js"></script>
 
 <script src="../static/js/axios-0.18.0.js"></script>
-<script>
-    var vue = new Vue({
+<!--<script>-->
 
-        el: '#app',
-        data: {
-            //TODO 应该是int
-            employee_id:"",
-            password:""
-        },
+<!--    var employee_id = document.getElementById("employee_id");-->
+<!--    var password = document.getElementById("password");-->
+<!--    var formData={employee_id,password}-->
 
-        //钩子函数，VUE对象初始化完成后自动执行
-        /*  created() {
-              this.getAll();
-          },*/
-        //TODO 登陆验证
-        methods: {
-            submit () {
-                let formData = new FormData();
-                formData.append('employee_id', this.employee_id);
-                formData.append('password', this.password);
+<!--    function login() {-->
 
-                console.log(123)
-                axios.post("", formData).then((res) => {
+<!--        window.sessionStorage.setItem("employee_id", employee_id.value)-->
+<!--        window.sessionStorage.setItem("password", password.value)-->
+<!--       axios.post("/a",formData)-->
 
-                })
-            },
-
-            submit2()
-            {
-                console.log(456)
-            }
-        }
-    })
-
-</script>
+<!--    }-->
+<!--</script>-->
 
 <!-- start footer area -->
 <footer class="footer-area">

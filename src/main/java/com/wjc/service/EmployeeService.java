@@ -12,4 +12,11 @@ public interface EmployeeService
     boolean verifyLogin(int employee_id,String password);
 
 
+    /**
+     * 查看员工部门
+     * @param employee_id 
+     * @return java.lang.String 
+     * @create 2022/7/17 23:18
+     */
+    public String getDept(int employee_id);
 }
