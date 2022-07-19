@@ -13,7 +13,6 @@ public interface CarDao {
     @Select("select * from car where car_id=#{id}")
     Car getByID(int id);
 
-
     @Select("select * from car where state = '空闲' ")
     List<Car> getAvailable();
 
@@ -23,6 +22,6 @@ public interface CarDao {
     @Update("update car set state='空闲' where car_id=#{car_id} and state ='需要维修'")
     int doRepair(int car_id);
 
-    @Select("select ")
-    List<Car> getNeededRepair();
+    @Update("update car set state='运输中' where car_id=#{car_id} and state ='空闲'")
+    int setTransport(int car_id);
 }

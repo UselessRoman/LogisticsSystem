@@ -26,8 +26,7 @@
         <div class="layui-tab-item layui-show">
             <div id="sheet1">
 
-
-
+                <!--todo 经理的利润部分-->
             </div>
         </div>
         <div class="layui-tab-item">
@@ -36,20 +35,15 @@
 
                     <div class="box">
 
-                        <!--                        <div class="filter-container">-->
+                        <div class="filter-container">
 
-                        <!--                            <el-input placeholder="图书名称111" v-model="pagination.queryString" style="width: 200px;"-->
-                        <!--                                      class="filter-item"></el-input>-->
+                            <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
 
-                        <!--                            <el-button @click="getAll()" class="dalfBut">查询</el-button>-->
-
-                        <!--                            <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>-->
-
-                        <!--                        </div>-->
+                        </div>
 
                         <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
 
-                            <el-table-column type="employee_id" align="center" label="序号"></el-table-column>
+                            <el-table-column prop="employee_id" align="center" label="序号"></el-table-column>
 
                             <el-table-column prop="employee_name" label="姓名" align="center"></el-table-column>
                             <el-table-column prop="salary" label="薪资" align="center"></el-table-column>
@@ -59,14 +53,141 @@
 
                                 <template slot-scope="scope">
 
-                                    <el-button type="primary" size="mini" @click="handleRepair(scope.row)">编辑</el-button>
-
-
+                                    <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑
+                                    </el-button>
                                 </template>
 
                             </el-table-column>
 
                         </el-table>
+
+                        <!-- 编辑标签弹层 -->
+
+                        <div class="add-form">
+
+                            <el-dialog title="编辑员工" :visible.sync="dialogFormVisible4Edit">
+
+                                <el-form ref="dataEditForm" :model="formData" label-position="right"
+                                         label-width="100px">
+
+                                    <el-row>
+
+                                        <el-col :span="12">
+
+                                            <el-form-item label="员工ID" prop="employee_id">
+
+                                                <el-input v-model="formData.employee_id" disabled/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+
+                                        <el-col :span="12">
+
+                                            <el-form-item label="员工姓名" prop="employee_name">
+
+                                                <el-input v-model="formData.employee_name" disabled/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+
+                                    </el-row>
+
+                                    <el-row>
+
+                                        <el-col :span="24">
+
+                                            <el-form-item label="薪资" prop="salary">
+
+                                                <el-input v-model="formData.salary"/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+                                        <el-col :span="24">
+
+                                            <el-form-item label="职位" prop="dept">
+
+                                                <el-input v-model="formData.dept"/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+
+                                    </el-row>
+
+                                </el-form>
+
+                                <div slot="footer" class="dialog-footer">
+
+                                    <el-button @click="dialogFormVisible4Edit = false">取消</el-button>
+
+                                    <el-button type="primary" @click="handleEdit()">确定</el-button>
+
+                                </div>
+
+                            </el-dialog>
+
+                        </div>
+
+                        <!-- 新增标签弹层 -->
+
+                        <div class="add-form">
+
+                            <el-dialog title="新增图书" :visible.sync="dialogFormVisible">
+
+                                <el-form ref="dataAddForm" :model="formData" label-position="right"
+                                         label-width="100px">
+
+                                    <el-row>
+
+                                        <el-col :span="12">
+
+                                            <el-form-item label="员工姓名" prop="employee_name">
+
+                                                <el-input v-model="formData.employee_name"/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+
+                                        <el-col :span="12">
+
+                                            <el-form-item label="薪资" prop="salary">
+
+                                                <el-input v-model="formData.salary"/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+
+                                        <el-col :span="12">
+
+                                            <el-form-item label="职位" prop="dept">
+
+                                                <el-input v-model="formData.dept"/>
+
+                                            </el-form-item>
+
+                                        </el-col>
+
+                                    </el-row>
+
+
+                                </el-form>
+
+                                <div slot="footer" class="dialog-footer">
+
+                                    <el-button @click="dialogFormVisible = false">取消</el-button>
+
+                                    <el-button type="primary" @click="handleAdd()">确定</el-button>
+
+                                </div>
+
+                            </el-dialog>
+
+                        </div>
 
                     </div>
 
@@ -85,6 +206,7 @@
     });
 </script>
 
+<script src="../static/js/vue.js"></script>
 
 <script type="text/javascript" src="../static/js/layui.js"></script>
 <script type="text/javascript" src="../static/js/jquery-1.12.4.min.js"></script>
@@ -103,10 +225,6 @@
             formData: {},//表单数据
             dialogFormVisible: false,//控制表单是否可见
             dialogFormVisible4Edit: false,//编辑表单是否可见
-            rules: {//校验规则
-                type: [{required: true, message: '图书类别为必填项', trigger: 'blur'}],
-                name: [{required: true, message: '图书名称为必填项', trigger: 'blur'}]
-            }
         },
 
         //钩子函数，VUE对象初始化完成后自动执行
@@ -117,10 +235,12 @@
         methods: {
             //列表
             getAll() {
-                axios.get("/books").then((res) => {
-                        this.dataList = res.data.data;
+
+                axios.get("/employee").then((res) => {
+                        this.dataList = res.data.object;
                     }
                 );
+
             },
 
             //弹出添加窗口
@@ -136,7 +256,7 @@
 
             //添加
             handleAdd() {
-                axios.post("/books", this.formData).then((res) => {
+                axios.post("/employee", this.formData).then((res) => {
                     if (res.data.code == 20011) {
                         this.dialogFormVisible = false;
 
@@ -155,12 +275,12 @@
 
             //弹出编辑窗口
             handleUpdate(row) {
-                axios.get("/books/" + row.id).then((res) => {
+                axios.get("/employee/" + row.employee_id).then((res) => {
                     if (res.data.code == 20041) {
-                        this.formData = res.data.data;
+                        this.formData = res.data.object;
                         this.dialogFormVisible4Edit = true;
                     } else {
-                        this.$message.error(res.data.mesg);
+                        this.$message.error(res.data.msg);
                     }
 
                 })
@@ -168,7 +288,7 @@
 
             //编辑
             handleEdit() {
-                axios.put("/books/", this.formData).then((res) => {
+                axios.put("/employee", this.formData).then((res) => {
                     if (res.data.code == 20031) {
                         this.dialogFormVisible4Edit = false;
 
@@ -183,29 +303,6 @@
                         this.getAll();
                     }
                 )
-            },
-
-            // 删除
-            handleDelete(row) {
-                //1.弹出提示框
-                this.$confirm("此操作永久删除当前数据，是否继续？","提示",{
-                    type:'info'
-                }).then(()=>{
-                    //2.做删除业务
-                    axios.delete("/books/"+row.id).then((res)=>{
-                        if(res.data.code == 20021){
-                            this.$message.success("删除成功");
-                        }else{
-                            this.$message.error("删除失败");
-                        }
-                    }).finally(()=>{
-                        this.getAll();
-                    });
-                }).catch(()=>{
-                    //3.取消删除
-                    this.$message.info("取消删除操作");
-                });
-
             }
         }
     })

@@ -42,5 +42,5 @@ public interface PackageService
 
     List<Package> getAllPackage();
 
-    boolean setArrived(Package p);
+    boolean setArrived(int package_id);
 }

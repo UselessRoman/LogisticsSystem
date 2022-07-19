@@ -58,9 +58,13 @@ public class PackageController {
         return new Result(flag ? Code.ADD_OK : Code.ADD_ERR, flag);
     }
 
-    @PutMapping
-    public Result update(@RequestBody Package p) {
-        boolean flag = packageService.setArrived(p);
-        return new Result(flag ? Code.UPDATE_OK : Code.UPDATE_ERR, flag);
+
+
+    @PutMapping("/receive/{package_id}")
+    public Result receive(@PathVariable int package_id)
+    {
+        boolean flag=packageService.setArrived(package_id);
+
+        return new Result(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     }
 }

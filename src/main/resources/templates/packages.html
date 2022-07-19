@@ -39,11 +39,19 @@
         <div class="box">
 
             <div class="filter-container">
+                <el-form :model="formData">
+                    <el-form-item>
+                        <el-input placeholder="包裹单号" v-model="formData.employee_id" style="width: 200px;"
+                                  class="filter-item"></el-input>
 
-                <el-input placeholder="包裹单号/电话号码" v-model="pagination.queryString" style="width: 200px;"
-                          class="filter-item"></el-input>
+                        <el-input placeholder="电话号码" v-model="formData.tel" style="width: 200px;"
+                                  class="filter-item"></el-input>
 
-                <el-button @click="getAll()" class="dalfBut">查询</el-button>
+                        <el-button @click="get(formData.employee_id,formData.tel)" class="dalfBut">查询</el-button>
+                    </el-form-item>
+
+
+                </el-form>
 
 
             </div>
@@ -96,32 +104,42 @@
                 pagination: {},
                 dataList: [],//当前页要展示的列表数据
                 formData: {},//表单数据
-                rules: {//校验规则
-                    type: [{required: true, message: '图书类别为必填项', trigger: 'blur'}],
-                    name: [{required: true, message: '图书名称为必填项', trigger: 'blur'}]
-                }
             },
 
             //钩子函数，VUE对象初始化完成后自动执行
             created() {
-                this.get();
+                var package_id = window.sessionStorage.getItem("package_id")
+                if (package_id != null) package_id = window.sessionStorage.getItem("package_id").valueOf()
+                var tel = window.sessionStorage.getItem("tel")
+                if (tel != null) tel = window.sessionStorage.getItem("tel").valueOf()
+                this.get(package_id, tel)
+
             },
 
             methods: {
                 //列表
-                get() {
-                    var package_id = window.sessionStorage.getItem("package_id").valueOf();
-                    console.log(package_id);
+                get(package_id, tel) {
+                    console.log("tel" + tel)
                     axios.get("/packages/" + package_id).then((res) => {
-                            this.dataList = res.data.object;
+                        //todo 电话号码查包裹
+                            if (res.data.code == 20041) {
+                                this.dataList = res.data.object;
+                                this.$message.success("查询成功！")
+
+                            } else {
+                                this.$message.error(res.data.msg)
+                            }
                         }
                     );
                 },
 
-                receive() {
-                    //todo 包裹状态更改
-                    axios.put("packages" + row.id).then((res) => {
-                        $.success("已收货！");
+
+                receive(row) {
+                    axios.put("/packages/receive/" + row.package_id).then((res) => {
+
+                        if (res.data.code = 20041) {
+                            this.$message.success("已收货")
+                        }
                     })
                 }
 

@@ -6,6 +6,7 @@ public class Employee
     private String employee_name;
     private int salary;
     private String dept;
+    private String password;
 
     @Override
     public String toString() {
@@ -15,6 +16,14 @@ public class Employee
                 ", salary=" + salary +
                 ", dept='" + dept + '\'' +
                 '}';
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getDept() {

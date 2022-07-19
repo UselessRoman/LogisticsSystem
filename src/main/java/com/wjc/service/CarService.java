@@ -3,6 +3,7 @@ package com.wjc.service;
 import com.wjc.domain.Car;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CarService {
     /**
@@ -37,7 +38,7 @@ public interface CarService {
      * @return boolean
      * @create 2022/7/14 10:03
      */
-    boolean setRepair(int id);
+    boolean addRepair(Map<String,Object> map);
 
 
     /**
@@ -46,5 +47,21 @@ public interface CarService {
      * @return boolean
      * @create 2022/7/14 10:03
      */
-    boolean doRepair(int id);
+    boolean doRepair(int car_id,int employee_id);
+
+
+    /**
+     * 查询需要维修的车辆
+     * @return   List<Map<String, Object>> getRepair();
+     * @create 2022/7/18 21:05
+     */
+    List<Map<String, Object>> getRepair();
+
+    /**
+     * 把车辆状态由空闲中设置为运输中
+     * @param car_id,send_addr,receive_addr,employee_id
+     * @return int
+     * @create 2022/7/19 9:06
+     */
+    boolean doTransport(int car_id,String send_addr,String receive_addr,int employee_id);
 }

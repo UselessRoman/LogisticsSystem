@@ -33,7 +33,7 @@ public interface PackageDao {
     int updateCarId(Package p);
 
     @Update("update package set status ='到达' where package_id=#{package_id}  ")
-    int setArrived(Package p);
+    int setArrived(int package_id);
 
 
     @Select("select * from package")

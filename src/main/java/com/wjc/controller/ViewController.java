@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,6 +36,16 @@ public class ViewController {
     @GetMapping("/index.html")
     public String toIndex() {
         return "index";
+    }
+
+    @GetMapping("/pricing.html")
+    public String toPrice() {
+        return "pricing";
+    }
+
+    @GetMapping("/caontact.html")
+    public String toContact() {
+        return "caontact";
     }
 
     @GetMapping("/login.html")
@@ -71,12 +82,18 @@ public class ViewController {
     }
 
     @RequestMapping(value = "/employee_login")
-    public void test(HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) throws IOException, IOException {
+    public void test(HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) throws IOException {
 
         int employee_id = Integer.parseInt(httpServletRequest.getParameter("employee_id"));
         String password = httpServletRequest.getParameter("password");
 
         if (employeeService.verifyLogin(employee_id, password)) {
+
+            // create a cookie
+            Cookie cookie = new Cookie("employee_id", Integer.toString(employee_id));
+
+            //add cookie to response
+            httpServletResponse.addCookie(cookie);
 
             switch (employeeService.getDept(employee_id)) {
                 case "经理": {
@@ -100,7 +117,8 @@ public class ViewController {
     }
 
     @RequestMapping("/addPackage")
-    public void addPackage(HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) throws IOException {
+    public void addPackage(HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest) throws
+            IOException {
         Package p = new Package();
         int sender_id = customerService.getCustomerIdByTel(httpServletRequest.getParameter("sender_tel"));
         int receiver_id = customerService.getCustomerIdByTel(httpServletRequest.getParameter("receiver_tel"));

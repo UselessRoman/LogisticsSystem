@@ -2,7 +2,8 @@ package com.wjc.domain;
 
 public class Car {
     private int car_id;
-    private String location;
+    private String send_addr;
+    private String receive_addr;
     private int capability;
     private String state;
 
@@ -10,7 +11,8 @@ public class Car {
     public String toString() {
         return "Car{" +
                 "car_id=" + car_id +
-                ", location='" + location + '\'' +
+                ", send_addr='" + send_addr + '\'' +
+                ", receive_addr='" + receive_addr + '\'' +
                 ", capability=" + capability +
                 ", state='" + state + '\'' +
                 '}';
@@ -24,12 +26,20 @@ public class Car {
         this.car_id = car_id;
     }
 
-    public String getLocation() {
-        return location;
+    public String getSend_addr() {
+        return send_addr;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setSend_addr(String send_addr) {
+        this.send_addr = send_addr;
+    }
+
+    public String getReceive_addr() {
+        return receive_addr;
+    }
+
+    public void setReceive_addr(String receive_addr) {
+        this.receive_addr = receive_addr;
     }
 
     public int getCapability() {

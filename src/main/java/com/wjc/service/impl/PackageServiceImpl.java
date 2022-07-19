@@ -44,7 +44,7 @@ public class PackageServiceImpl implements PackageService {
     }
 
     @Override
-    public boolean setArrived(Package p) {
-        return packageDao.setArrived(p)>0;
+    public boolean setArrived(int package_id) {
+        return packageDao.setArrived(package_id)>0;
     }
 }
